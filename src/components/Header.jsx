@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   Search01Icon,
@@ -14,9 +15,9 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4 h-16">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 shrink-0">
+          <Link to="/" className="flex items-center gap-2 shrink-0">
             <span className="text-2xl font-bold tracking-tight text-brand">Artisan</span>
-          </a>
+          </Link>
 
           {/* Search - center */}
           <div className="hidden md:flex flex-1 max-w-2xl mx-auto">
@@ -38,29 +39,29 @@ export default function Header() {
 
           {/* Right actions */}
           <div className="flex items-center gap-1 sm:gap-2 ml-auto">
-            <a
-              href="/artist-signup"
+            <Link
+              to="/artist-signup"
               className="hidden lg:flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-full hover:bg-gray-100 transition-colors"
             >
               <HugeiconsIcon icon={Store01Icon} size={20} />
               Sell on Artisan
-            </a>
-            <a
-              href="/login"
+            </Link>
+            <Link
+              to="/login"
               className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-full hover:bg-gray-100 transition-colors"
             >
               <HugeiconsIcon icon={UserIcon} size={20} />
               Sign in
-            </a>
-            <a
-              href="/wishlist"
+            </Link>
+            <Link
+              to="/wishlist"
               aria-label="Wishlist"
               className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 transition-colors"
             >
               <HugeiconsIcon icon={FavouriteIcon} size={22} />
-            </a>
-            <a
-              href="/cart"
+            </Link>
+            <Link
+              to="/cart"
               aria-label="Cart"
               className="relative flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 transition-colors"
             >
@@ -68,7 +69,7 @@ export default function Header() {
               <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center h-4 w-4 rounded-full bg-brand text-white text-[10px] font-bold">
                 0
               </span>
-            </a>
+            </Link>
             <button
               type="button"
               aria-label="Menu"

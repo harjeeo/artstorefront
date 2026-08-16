@@ -1,27 +1,19 @@
-import Header from './components/Header';
-import Hero from './components/Hero';
-import CategorySlider from './components/CategorySlider';
-import ProductSlider from './components/ProductSlider';
-import ReelsSlider from './components/ReelsSlider';
-import TopArtists from './components/TopArtists';
-import ExploreRelatedSearches from './components/ExploreRelatedSearches';
-import Footer from './components/Footer';
-import { featuredProducts, trendingProducts } from './data/homeData';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import CategoryPage from './pages/CategoryPage';
+import ComingSoon from './pages/ComingSoon';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1">
-        <Hero />
-        <CategorySlider />
-        <ProductSlider title="Featured Products" products={featuredProducts} />
-        <ProductSlider title="Trending Products" products={trendingProducts} />
-        <ReelsSlider />
-        <TopArtists />
-        <ExploreRelatedSearches />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="category/:slug" element={<CategoryPage />} />
+          <Route path="*" element={<ComingSoon />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

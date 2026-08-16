@@ -1,12 +1,10 @@
+import { Link } from 'react-router-dom';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { FavouriteIcon, StarIcon } from '@hugeicons/core-free-icons';
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, className = 'snap-start shrink-0 w-44 sm:w-52' }) {
   return (
-    <a
-      href={`/product/${product.id}`}
-      className="snap-start shrink-0 w-44 sm:w-52 group"
-    >
+    <Link to={`/product/${product.id}`} className={`group ${className}`}>
       <div className="relative rounded-xl overflow-hidden bg-gray-100 aspect-square">
         <img
           src={product.image}
@@ -41,6 +39,6 @@ export default function ProductCard({ product }) {
           </span>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }

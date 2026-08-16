@@ -13,31 +13,52 @@ export const categories = [
   { id: 'gifts', name: 'Gifts', image: 'https://picsum.photos/seed/cat-gifts/200/200' },
 ];
 
-function makeProducts(seedPrefix, count = 8) {
-  const titles = [
-    'Custom Name Embroidered Wooden Sign',
-    'Handmade Ceramic Vase, Minimalist Decor',
-    'Personalized Leather Journal, Engraved Gift',
-    'Boho Macrame Wall Hanging, Cotton',
-    'Raw Crystal Necklace, Rose Quartz Pendant',
-    'Musical Wooden Ballerina Carousel Box',
-    'Custom Pet Portrait, Digital Illustration',
-    'Hand Embroidered Vintage Flag, Wall Art',
-    'Personalized Wedding Cake Server Set',
-    'Minimalist Gold Hoop Earrings, Sterling Silver',
-    'Custom Birth Flower Bracelet, Dainty Gift',
-    'Handwoven Cotton Throw Blanket',
-  ];
+const productTitles = [
+  'Custom Name Embroidered Wooden Sign',
+  'Handmade Ceramic Vase, Minimalist Decor',
+  'Personalized Leather Journal, Engraved Gift',
+  'Boho Macrame Wall Hanging, Cotton',
+  'Raw Crystal Necklace, Rose Quartz Pendant',
+  'Musical Wooden Ballerina Carousel Box',
+  'Custom Pet Portrait, Digital Illustration',
+  'Hand Embroidered Vintage Flag, Wall Art',
+  'Personalized Wedding Cake Server Set',
+  'Minimalist Gold Hoop Earrings, Sterling Silver',
+  'Custom Birth Flower Bracelet, Dainty Gift',
+  'Handwoven Cotton Throw Blanket',
+];
+
+const colors = ['Black', 'White', 'Beige', 'Red', 'Blue', 'Green', 'Pink', 'Gold'];
+
+// Small deterministic string-seeded PRNG so the same seed always
+// produces the same "random" data (stable across re-renders / pages).
+function seededRandom(seed) {
+  let h = 1779033703 ^ seed.length;
+  for (let i = 0; i < seed.length; i++) {
+    h = Math.imul(h ^ seed.charCodeAt(i), 3432918353);
+    h = (h << 13) | (h >>> 19);
+  }
+  return function random() {
+    h = Math.imul(h ^ (h >>> 16), 2246822507);
+    h = Math.imul(h ^ (h >>> 13), 3266489909);
+    h ^= h >>> 16;
+    return (h >>> 0) / 4294967296;
+  };
+}
+
+export function makeProducts(seedPrefix, count = 8) {
   return Array.from({ length: count }).map((_, i) => {
-    const price = Math.round((300 + Math.random() * 4500) / 10) * 10;
-    const original = Math.round(price * (1.4 + Math.random() * 0.8));
+    const rand = seededRandom(`${seedPrefix}-${i}`);
+    const price = Math.round((300 + rand() * 4500) / 10) * 10;
+    const original = Math.round(price * (1.4 + rand() * 0.8));
     return {
       id: `${seedPrefix}-${i}`,
-      title: titles[(i + seedPrefix.length) % titles.length],
+      title: productTitles[(i + seedPrefix.length) % productTitles.length],
       image: `https://picsum.photos/seed/${seedPrefix}-${i}/500/500`,
       price,
       originalPrice: original,
-      rating: (4 + Math.random()).toFixed(1),
+      rating: (4 + rand()).toFixed(1),
+      color: colors[Math.floor(rand() * colors.length)],
       bestseller: i % 3 === 0,
     };
   });
