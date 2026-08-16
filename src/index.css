@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-serif: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
 
   --color-brand: #f1641e;
   --color-brand-dark: #d6540f;
@@ -16,6 +16,7 @@ html {
 
 body {
   margin: 0;
+  font-family: var(--font-sans);
   color: var(--color-ink);
   background: #ffffff;
   -webkit-font-smoothing: antialiased;
