@@ -8,8 +8,11 @@ import {
   Store01Icon,
   Menu01Icon,
 } from '@hugeicons/core-free-icons';
+import { useCart } from '../context/CartContext';
 
 export default function Header() {
+  const { itemCount, openCart } = useCart();
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,16 +63,19 @@ export default function Header() {
             >
               <HugeiconsIcon icon={FavouriteIcon} size={22} />
             </Link>
-            <Link
-              to="/cart"
+            <button
+              type="button"
+              onClick={openCart}
               aria-label="Cart"
-              className="relative flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 transition-colors"
+              className="relative flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
             >
               <HugeiconsIcon icon={ShoppingCart01Icon} size={22} />
-              <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center h-4 w-4 rounded-full bg-brand text-white text-[10px] font-bold">
-                0
-              </span>
-            </Link>
+              {itemCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center h-4 w-4 rounded-full bg-brand text-white text-[10px] font-bold">
+                  {itemCount > 9 ? '9+' : itemCount}
+                </span>
+              )}
+            </button>
             <button
               type="button"
               aria-label="Menu"

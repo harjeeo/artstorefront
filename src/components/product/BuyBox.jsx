@@ -8,6 +8,7 @@ import {
   ArrowDown01Icon,
 } from '@hugeicons/core-free-icons';
 import { sizeOptions, colorOptions } from '../../data/productDetailData';
+import { useCart } from '../../context/CartContext';
 
 function Select({ label, value, onChange, options, placeholder }) {
   return (
@@ -42,6 +43,7 @@ export default function BuyBox({ product }) {
   const [size, setSize] = useState('');
   const [color, setColor] = useState('');
   const [wishlisted, setWishlisted] = useState(false);
+  const { addItem } = useCart();
 
   const discount = Math.round(
     ((product.originalPrice - product.price) / product.originalPrice) * 100
@@ -104,6 +106,7 @@ export default function BuyBox({ product }) {
       <div className="flex flex-col gap-3 mt-6">
         <button
           type="button"
+          onClick={() => addItem(product, { size, color })}
           className="flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-brand hover:bg-brand-dark text-white font-semibold text-sm transition-colors cursor-pointer"
         >
           <HugeiconsIcon icon={ShoppingCart01Icon} size={20} />
