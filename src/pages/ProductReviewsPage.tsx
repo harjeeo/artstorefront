@@ -6,6 +6,7 @@ import { getProductById, reviewFilterTags } from '../data/productDetailData';
 import { useProductReviews } from '../context/ProductReviewsContext';
 import ReviewListItem from '../components/product/ReviewListItem';
 import WriteReviewModal from '../components/product/WriteReviewModal';
+import Slider from '../components/Slider';
 
 export default function ProductReviewsPage() {
   const { id = '' } = useParams();
@@ -51,33 +52,35 @@ export default function ProductReviewsPage() {
         Write a Review
       </button>
 
-      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 mb-4">
-        <button
-          type="button"
-          onClick={() => setActiveFilter('suggested')}
-          className={`flex items-center gap-1.5 shrink-0 px-4 py-2 rounded-full border text-sm font-medium cursor-pointer transition-colors ${
-            activeFilter === 'suggested'
-              ? 'bg-ink text-white border-ink'
-              : 'border-gray-300 text-ink hover:border-ink'
-          }`}
-        >
-          Suggested
-          <HugeiconsIcon icon={ArrowDown01Icon} size={14} />
-        </button>
-        {reviewFilterTags.map((tag) => (
+      <div className="mb-4">
+        <Slider itemClassName="!gap-2 pb-1">
           <button
-            key={tag.id}
             type="button"
-            onClick={() => setActiveFilter(tag.id)}
-            className={`shrink-0 px-4 py-2 rounded-full border text-sm font-medium cursor-pointer transition-colors ${
-              activeFilter === tag.id
+            onClick={() => setActiveFilter('suggested')}
+            className={`flex items-center gap-1.5 shrink-0 px-4 py-2 rounded-full border text-sm font-medium cursor-pointer transition-colors ${
+              activeFilter === 'suggested'
                 ? 'bg-ink text-white border-ink'
                 : 'border-gray-300 text-ink hover:border-ink'
             }`}
           >
-            {tag.label} ({tag.count})
+            Suggested
+            <HugeiconsIcon icon={ArrowDown01Icon} size={14} />
           </button>
-        ))}
+          {reviewFilterTags.map((tag) => (
+            <button
+              key={tag.id}
+              type="button"
+              onClick={() => setActiveFilter(tag.id)}
+              className={`shrink-0 px-4 py-2 rounded-full border text-sm font-medium cursor-pointer transition-colors ${
+                activeFilter === tag.id
+                  ? 'bg-ink text-white border-ink'
+                  : 'border-gray-300 text-ink hover:border-ink'
+              }`}
+            >
+              {tag.label} ({tag.count})
+            </button>
+          ))}
+        </Slider>
       </div>
 
       <div className="divide-y divide-gray-200 border-t border-gray-200">
