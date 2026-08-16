@@ -31,7 +31,11 @@ export default function ProductPage() {
           {/* Left column: gallery + reviews */}
           <div>
             <ImageGallery product={product} />
-            <ReviewsSection rating={product.rating} reviewCount={product.reviewCount} />
+            <ReviewsSection
+              productId={product.id}
+              rating={product.rating}
+              reviewCount={product.reviewCount}
+            />
           </div>
 
           {/* Right column: buy box + policies */}

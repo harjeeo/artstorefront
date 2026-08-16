@@ -104,3 +104,13 @@ export interface MyReview {
   text: string;
   date: string;
 }
+
+export interface ProductReview {
+  id: string;
+  name: string;
+  avatar: string | null;
+  date: string;
+  rating: number;
+  text: string;
+  image?: string;
+}

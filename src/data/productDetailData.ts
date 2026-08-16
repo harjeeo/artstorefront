@@ -1,3 +1,5 @@
+import type { ProductReview } from '../types';
+
 export const sizeOptions = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 export const colorOptions = [
   { id: 'natural', label: 'Natural' },
@@ -104,7 +106,7 @@ export const reviewFilterTags = [
   { id: 'appearance', label: 'Appearance', count: 1 },
 ];
 
-export const reviews = [
+export const reviews: ProductReview[] = [
   {
     id: 'r1',
     name: 'Chloe',

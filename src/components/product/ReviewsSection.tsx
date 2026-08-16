@@ -1,43 +1,45 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { HugeiconsIcon } from '@hugeicons/react';
-import {
-  StarIcon,
-  CheckmarkCircle01Icon,
-  ArrowDown01Icon,
-} from '@hugeicons/core-free-icons';
-import {
-  reviewSummaryTags,
-  reviewCategories,
-  reviewFilterTags,
-  reviews,
-} from '../../data/productDetailData';
+import { StarIcon, CheckmarkCircle01Icon, ArrowDown01Icon } from '@hugeicons/core-free-icons';
+import { reviewSummaryTags, reviewCategories, reviewFilterTags } from '../../data/productDetailData';
+import { useProductReviews } from '../../context/ProductReviewsContext';
+import ReviewListItem from './ReviewListItem';
+import WriteReviewModal from './WriteReviewModal';
 
-function Stars({ count, size = 14 }: { count: number; size?: number }) {
-  return (
-    <div className="flex items-center text-brand">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <HugeiconsIcon
-          key={i}
-          icon={StarIcon}
-          size={size}
-          className={i < count ? 'fill-brand' : 'text-gray-300'}
-        />
-      ))}
-    </div>
-  );
-}
+const PREVIEW_COUNT = 3;
 
 interface ReviewsSectionProps {
+  productId: string;
   rating: number;
   reviewCount: number;
 }
 
-export default function ReviewsSection({ rating, reviewCount }: ReviewsSectionProps) {
+export default function ReviewsSection({ productId, rating, reviewCount }: ReviewsSectionProps) {
   const [activeFilter, setActiveFilter] = useState('suggested');
+  const [showWriteReview, setShowWriteReview] = useState(false);
+  const { reviews } = useProductReviews();
 
   return (
     <section className="mt-12 pt-10 border-t border-gray-200">
-      <h2 className="text-2xl font-serif font-medium text-ink mb-4">Reviews for this item</h2>
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <h2 className="text-2xl font-serif font-medium text-ink">Reviews for this item</h2>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setShowWriteReview(true)}
+            className="px-5 py-2.5 rounded-full bg-brand hover:bg-brand-dark text-white text-sm font-semibold transition-colors cursor-pointer"
+          >
+            Write a Review
+          </button>
+          <Link
+            to={`/product/${productId}/reviews`}
+            className="px-5 py-2.5 rounded-full border border-ink text-ink text-sm font-semibold hover:bg-gray-50 transition-colors"
+          >
+            View all Reviews
+          </Link>
+        </div>
+      </div>
 
       <p className="text-sm font-semibold text-ink mb-2">What buyers say, summarised by AI</p>
       <div className="flex flex-wrap gap-x-5 gap-y-2 mb-6">
@@ -101,44 +103,21 @@ export default function ReviewsSection({ rating, reviewCount }: ReviewsSectionPr
       </div>
 
       <div className="divide-y divide-gray-200">
-        {reviews.map((review) => (
-          <div key={review.id} className="py-5 flex gap-4">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1.5">
-                <Stars count={review.rating} />
-                <span className="text-sm text-gray-500">{review.rating}</span>
-                <span className="px-2 py-0.5 rounded-full bg-gray-100 text-xs text-gray-600">
-                  This item
-                </span>
-              </div>
-              <p className="text-sm text-gray-700 leading-relaxed">{review.text}</p>
-              {review.image && (
-                <img
-                  src={review.image}
-                  alt=""
-                  className="h-16 w-16 rounded-lg object-cover mt-3"
-                  loading="lazy"
-                />
-              )}
-            </div>
-            <div className="flex items-center gap-2 shrink-0 text-right">
-              <div className="flex items-center gap-2">
-                {review.avatar ? (
-                  <img src={review.avatar} alt={review.name} className="h-8 w-8 rounded-full object-cover" />
-                ) : (
-                  <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold text-gray-600">
-                    {review.name[0]}
-                  </div>
-                )}
-                <div>
-                  <p className="text-sm font-medium text-ink">{review.name}</p>
-                  <p className="text-xs text-gray-500">{review.date}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        {reviews.slice(0, PREVIEW_COUNT).map((review) => (
+          <ReviewListItem key={review.id} review={review} />
         ))}
       </div>
+
+      {reviews.length > PREVIEW_COUNT && (
+        <Link
+          to={`/product/${productId}/reviews`}
+          className="inline-flex items-center justify-center mt-4 px-5 py-2.5 rounded-full border border-gray-300 text-sm font-semibold text-ink hover:border-ink transition-colors"
+        >
+          View all {reviews.length} reviews
+        </Link>
+      )}
+
+      {showWriteReview && <WriteReviewModal onClose={() => setShowWriteReview(false)} />}
     </section>
   );
 }
