@@ -12,6 +12,11 @@ import ProductReviewsPage from './pages/ProductReviewsPage';
 import CartPage from './pages/CartPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import WishlistStorePage from './pages/WishlistPage';
+import TermsPage from './pages/TermsPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import RefundPolicyPage from './pages/RefundPolicyPage';
+import ShippingPolicyPage from './pages/ShippingPolicyPage';
+import AboutUsPage from './pages/AboutUsPage';
 import CheckoutPage from './pages/CheckoutPage';
 import DashboardLayout from './components/dashboard/DashboardLayout';
 import ProfilePage from './pages/dashboard/ProfilePage';
@@ -50,6 +55,11 @@ export default function App() {
                     <Route path="cart" element={<CartPage />} />
                     <Route path="search" element={<SearchResultsPage />} />
                     <Route path="wishlist" element={<WishlistStorePage />} />
+                    <Route path="terms-conditions" element={<TermsPage />} />
+                    <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+                    <Route path="refund-policy" element={<RefundPolicyPage />} />
+                    <Route path="shipping-policy" element={<ShippingPolicyPage />} />
+                    <Route path="about-us" element={<AboutUsPage />} />
                     <Route path="checkout" element={<CheckoutPage />} />
                     <Route path="artist-signup" element={<ArtistSignupPage />} />
                     <Route path="account" element={<DashboardLayout />}>

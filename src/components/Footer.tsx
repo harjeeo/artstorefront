@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   AppleIcon,
@@ -19,11 +20,23 @@ const columns = [
   },
   {
     title: 'About',
-    links: ['Artisan, Inc.', 'Policies', 'Investors', 'Careers', 'Press', 'Impact', 'Legal imprint'],
+    links: [
+      { label: 'About Us', to: '/about-us' },
+      'Investors',
+      'Careers',
+      'Press',
+      'Impact',
+      'Legal imprint',
+    ],
   },
   {
     title: 'Help',
-    links: ['Help Centre', 'Privacy settings'],
+    links: [
+      'Help Centre',
+      'Privacy settings',
+      { label: 'Refund & Cancellation Policy', to: '/refund-policy' },
+      { label: 'Shipping & Delivery Policy', to: '/shipping-policy' },
+    ],
   },
 ];
 
@@ -44,13 +57,23 @@ export default function Footer() {
             <div key={col.title}>
               <h3 className="font-semibold text-ink mb-4">{col.title}</h3>
               <ul className="space-y-3">
-                {col.links.map((link) => (
-                  <li key={link}>
-                    <a href="/" className="text-sm text-gray-700 hover:text-ink hover:underline">
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {col.links.map((link) => {
+                  const label = typeof link === 'string' ? link : link.label;
+                  const to = typeof link === 'string' ? undefined : link.to;
+                  return (
+                    <li key={label}>
+                      {to ? (
+                        <Link to={to} className="text-sm text-gray-700 hover:text-ink hover:underline">
+                          {label}
+                        </Link>
+                      ) : (
+                        <a href="/" className="text-sm text-gray-700 hover:text-ink hover:underline">
+                          {label}
+                        </a>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
@@ -104,8 +127,8 @@ export default function Footer() {
 
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-gray-700">
             <span>&copy; 2026 Artisan, Inc.</span>
-            <a href="/" className="hover:underline">Terms of Use</a>
-            <a href="/" className="hover:underline">Privacy</a>
+            <Link to="/terms-conditions" className="hover:underline">Terms of Use</Link>
+            <Link to="/privacy-policy" className="hover:underline">Privacy</Link>
             <a href="/" className="hover:underline">Interest-based ads</a>
             <a href="/" className="hover:underline">Local Shops</a>
             <a href="/" className="hover:underline">Regions</a>
