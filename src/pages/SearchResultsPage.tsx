@@ -10,9 +10,12 @@ export default function SearchResultsPage() {
   const query = searchParams.get('q')?.trim() ?? '';
 
   const results = useMemo(() => {
-    const q = query.toLowerCase();
-    if (!q) return [];
-    return searchCatalog.filter((p) => p.title.toLowerCase().includes(q));
+    const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+    if (words.length === 0) return [];
+    return searchCatalog.filter((p) => {
+      const title = p.title.toLowerCase();
+      return words.every((word) => title.includes(word));
+    });
   }, [query]);
 
   return (
