@@ -12,6 +12,9 @@ export const categories: Category[] = [
   { id: 'bags', name: 'Bags & Purses', image: 'https://picsum.photos/seed/cat-bags/200/200' },
   { id: 'accessories', name: 'Accessories', image: 'https://picsum.photos/seed/cat-accessories/200/200' },
   { id: 'gifts', name: 'Gifts', image: 'https://picsum.photos/seed/cat-gifts/200/200' },
+  { id: 'phone-cases', name: 'Phone Cases', image: 'https://picsum.photos/seed/cat-phonecases/200/200' },
+  { id: 'wall-art', name: 'Wall Art', image: 'https://picsum.photos/seed/cat-wallart/200/200' },
+  { id: 'home-living', name: 'Home & Living', image: 'https://picsum.photos/seed/cat-homeliving/200/200' },
 ];
 
 const productTitles = [

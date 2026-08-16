@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
-  Search01Icon,
   ShoppingCart01Icon,
   FavouriteIcon,
   UserIcon,
@@ -9,6 +8,8 @@ import {
   Menu01Icon,
 } from '@hugeicons/core-free-icons';
 import { useCart } from '../context/CartContext';
+import SearchBar from './SearchBar';
+import CategoryNav from './CategoryNav';
 
 export default function Header() {
   const { itemCount, openCart } = useCart();
@@ -24,20 +25,7 @@ export default function Header() {
 
           {/* Search - center */}
           <div className="hidden md:flex flex-1 max-w-2xl mx-auto">
-            <div className="flex w-full items-center rounded-full border-2 border-ink overflow-hidden focus-within:border-brand transition-colors">
-              <input
-                type="text"
-                placeholder="Search for handmade products, art, gifts..."
-                className="w-full px-4 py-2.5 text-sm outline-none"
-              />
-              <button
-                type="button"
-                aria-label="Search"
-                className="flex items-center justify-center h-10 w-12 bg-ink text-white hover:bg-black transition-colors cursor-pointer shrink-0"
-              >
-                <HugeiconsIcon icon={Search01Icon} size={20} />
-              </button>
-            </div>
+            <SearchBar />
           </div>
 
           {/* Right actions */}
@@ -88,22 +76,11 @@ export default function Header() {
 
         {/* Mobile search */}
         <div className="md:hidden pb-3">
-          <div className="flex w-full items-center rounded-full border-2 border-ink overflow-hidden">
-            <input
-              type="text"
-              placeholder="Search for products..."
-              className="w-full px-4 py-2 text-sm outline-none"
-            />
-            <button
-              type="button"
-              aria-label="Search"
-              className="flex items-center justify-center h-9 w-11 bg-ink text-white shrink-0"
-            >
-              <HugeiconsIcon icon={Search01Icon} size={18} />
-            </button>
-          </div>
+          <SearchBar variant="mobile" />
         </div>
       </div>
+
+      <CategoryNav />
     </header>
   );
 }

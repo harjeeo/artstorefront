@@ -10,6 +10,7 @@ import CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
 import ProductReviewsPage from './pages/ProductReviewsPage';
 import CartPage from './pages/CartPage';
+import SearchResultsPage from './pages/SearchResultsPage';
 import CheckoutPage from './pages/CheckoutPage';
 import DashboardLayout from './components/dashboard/DashboardLayout';
 import ProfilePage from './pages/dashboard/ProfilePage';
@@ -46,6 +47,7 @@ export default function App() {
                     <Route path="product/:id" element={<ProductPage />} />
                     <Route path="product/:id/reviews" element={<ProductReviewsPage />} />
                     <Route path="cart" element={<CartPage />} />
+                    <Route path="search" element={<SearchResultsPage />} />
                     <Route path="checkout" element={<CheckoutPage />} />
                     <Route path="artist-signup" element={<ArtistSignupPage />} />
                     <Route path="account" element={<DashboardLayout />}>
