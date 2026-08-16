@@ -1,3 +1,5 @@
+import { HugeiconsIcon } from '@hugeicons/react';
+import { StarIcon } from '@hugeicons/core-free-icons';
 import Slider from './Slider';
 import { topArtists } from '../data/homeData';
 
@@ -12,7 +14,7 @@ export default function TopArtists() {
             href={`/shop/${artist.shopName}`}
             className="snap-start shrink-0 w-40 sm:w-44 rounded-xl border border-gray-200 hover:shadow-md transition-shadow group block"
           >
-            <div className="h-20 sm:h-24 rounded-t-xl overflow-hidden bg-gray-100">
+            <div className="h-32 sm:h-36 rounded-t-xl overflow-hidden bg-gray-100">
               <img
                 src={artist.cover}
                 alt=""
@@ -24,11 +26,15 @@ export default function TopArtists() {
               <img
                 src={artist.avatar}
                 alt={artist.name}
-                className="h-16 w-16 rounded-full object-cover ring-4 ring-white group-hover:ring-brand/20 transition-all"
+                className="h-16 w-16 rounded-full object-cover ring-4 ring-white"
                 loading="lazy"
               />
               <p className="mt-2 text-sm font-semibold text-ink truncate w-full">{artist.name}</p>
               <p className="text-xs text-gray-500 truncate w-full">{artist.shopName}</p>
+              <span className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-brand/10 text-[11px] font-semibold text-brand">
+                <HugeiconsIcon icon={StarIcon} size={11} className="fill-brand" />
+                {artist.rating}
+              </span>
             </div>
           </a>
         ))}

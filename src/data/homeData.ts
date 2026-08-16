@@ -131,6 +131,7 @@ export const topArtists = Array.from({ length: 10 }).map((_, i) => ({
   ][i],
   avatar: `https://i.pravatar.cc/150?img=${i + 12}`,
   cover: `https://picsum.photos/seed/artist-cover-${i}/300/200`,
+  rating: (4 + ((i * 37) % 10) / 10).toFixed(1),
 }));
 
 export const exploreRelatedTop = [
