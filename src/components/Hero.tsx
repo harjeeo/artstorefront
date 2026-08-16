@@ -5,10 +5,10 @@ export default function Hero() {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: "url('https://picsum.photos/seed/hero-bg/1600/700')" }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+      <div className="absolute inset-0 bg-black/45" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
-        <div className="max-w-xl">
+        <div className="max-w-xl mx-auto text-center flex flex-col items-center">
           <p className="text-white/90 font-semibold tracking-wide uppercase text-sm mb-3">
             Handmade &middot; Original &middot; One of a kind
           </p>
