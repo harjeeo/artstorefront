@@ -65,6 +65,10 @@ export function CartProvider({ children }) {
     setItems((prev) => prev.filter((item) => item.lineId !== lineId));
   }, []);
 
+  const clearCart = useCallback(() => {
+    setItems([]);
+  }, []);
+
   const updateQuantity = useCallback((lineId, quantity) => {
     setItems((prev) =>
       prev.map((item) => (item.lineId === lineId ? { ...item, quantity } : item))
@@ -116,6 +120,7 @@ export function CartProvider({ children }) {
       closeCart,
       addItem,
       removeItem,
+      clearCart,
       updateQuantity,
       saveForLater,
       moveToCart,
@@ -134,6 +139,7 @@ export function CartProvider({ children }) {
       closeCart,
       addItem,
       removeItem,
+      clearCart,
       updateQuantity,
       saveForLater,
       moveToCart,
