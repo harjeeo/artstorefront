@@ -17,6 +17,7 @@ import WishlistPage from './pages/dashboard/WishlistPage';
 import ReviewsPage from './pages/dashboard/ReviewsPage';
 import AddressPage from './pages/dashboard/AddressPage';
 import RequestsPage from './pages/dashboard/RequestsPage';
+import ArtistSignupPage from './pages/ArtistSignupPage';
 import ComingSoon from './pages/ComingSoon';
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
                   <Route path="product/:id" element={<ProductPage />} />
                   <Route path="cart" element={<CartPage />} />
                   <Route path="checkout" element={<CheckoutPage />} />
+                  <Route path="artist-signup" element={<ArtistSignupPage />} />
                   <Route path="account" element={<DashboardLayout />}>
                     <Route index element={<Navigate to="profile" replace />} />
                     <Route path="profile" element={<ProfilePage />} />
