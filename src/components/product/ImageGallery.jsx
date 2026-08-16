@@ -9,6 +9,7 @@ import {
   Table01Icon,
 } from '@hugeicons/core-free-icons';
 import { colorOptions } from '../../data/productDetailData';
+import { useWishlist } from '../../context/WishlistContext';
 
 function ThumbContent({ thumb }) {
   if (thumb.type === 'video') {
@@ -58,7 +59,8 @@ function swatchHex(id) {
 
 export default function ImageGallery({ product }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [wishlisted, setWishlisted] = useState(false);
+  const { isWishlisted, toggleWishlist } = useWishlist();
+  const wishlisted = isWishlisted(product.id);
   const thumbs = product.thumbnails;
   const active = thumbs[activeIndex];
 
@@ -121,7 +123,7 @@ export default function ImageGallery({ product }) {
 
         <button
           type="button"
-          onClick={() => setWishlisted((w) => !w)}
+          onClick={() => toggleWishlist(product)}
           aria-label="Add to wishlist"
           aria-pressed={wishlisted}
           className="absolute -top-3 -right-3 flex items-center justify-center h-11 w-11 rounded-full bg-white shadow-md border border-gray-100 hover:scale-105 transition-transform cursor-pointer"

@@ -1,19 +1,36 @@
 export const savedAddresses = [
   {
     id: 'addr-1',
-    label: '297 C',
+    houseNo: '297 C',
+    addressLine1: 'Guru Nanak Nagar, Vill Gill',
+    addressLine2: '',
+    city: 'Ludhiana',
+    state: 'Punjab',
+    pincode: '141116',
+    country: 'India',
     isDefault: true,
-    line1: 'Guru Nanak Nagar, Vill Gill',
-    line2: 'Ludhiana, Punjab 141116, India',
   },
   {
     id: 'addr-2',
-    label: 'Office',
+    houseNo: 'Office',
+    addressLine1: '4th Floor, Cyber Hub',
+    addressLine2: '',
+    city: 'Gurugram',
+    state: 'Haryana',
+    pincode: '122002',
+    country: 'India',
     isDefault: false,
-    line1: '4th Floor, Cyber Hub',
-    line2: 'Gurugram, Haryana 122002, India',
   },
 ];
+
+export function formatAddressLines(addr) {
+  return {
+    title: addr.houseNo,
+    line1: addr.addressLine1,
+    line2: addr.addressLine2,
+    line3: `${addr.city}, ${addr.state} ${addr.pincode}, ${addr.country}`,
+  };
+}
 
 export const shippingMethods = [
   { id: 'standard', label: 'Standard Delivery', eta: '5-9 business days', price: 0 },

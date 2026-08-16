@@ -9,6 +9,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import { sizeOptions, colorOptions } from '../../data/productDetailData';
 import { useCart } from '../../context/CartContext';
+import { useWishlist } from '../../context/WishlistContext';
 
 function Select({ label, value, onChange, options, placeholder }) {
   return (
@@ -42,8 +43,9 @@ function Select({ label, value, onChange, options, placeholder }) {
 export default function BuyBox({ product }) {
   const [size, setSize] = useState('');
   const [color, setColor] = useState('');
-  const [wishlisted, setWishlisted] = useState(false);
   const { addItem } = useCart();
+  const { isWishlisted, toggleWishlist } = useWishlist();
+  const wishlisted = isWishlisted(product.id);
 
   const discount = Math.round(
     ((product.originalPrice - product.price) / product.originalPrice) * 100
@@ -114,7 +116,7 @@ export default function BuyBox({ product }) {
         </button>
         <button
           type="button"
-          onClick={() => setWishlisted((w) => !w)}
+          onClick={() => toggleWishlist(product)}
           aria-pressed={wishlisted}
           className={`flex items-center justify-center gap-2 w-full py-3.5 rounded-full border font-semibold text-sm transition-colors cursor-pointer ${
             wishlisted

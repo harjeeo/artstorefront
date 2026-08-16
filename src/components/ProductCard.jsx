@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { FavouriteIcon, StarIcon } from '@hugeicons/core-free-icons';
+import { useWishlist } from '../context/WishlistContext';
 
 export default function ProductCard({ product, className = 'snap-start shrink-0 w-44 sm:w-52' }) {
+  const { isWishlisted, toggleWishlist } = useWishlist();
+  const wishlisted = isWishlisted(product.id);
+
   return (
     <Link to={`/product/${product.id}`} className={`group ${className}`}>
       <div className="relative rounded-xl overflow-hidden bg-gray-100 aspect-square">
@@ -15,10 +19,18 @@ export default function ProductCard({ product, className = 'snap-start shrink-0 
         <button
           type="button"
           aria-label="Add to wishlist"
-          onClick={(e) => e.preventDefault()}
+          aria-pressed={wishlisted}
+          onClick={(e) => {
+            e.preventDefault();
+            toggleWishlist(product);
+          }}
           className="absolute top-2 right-2 flex items-center justify-center h-8 w-8 rounded-full bg-white/90 hover:bg-white shadow-sm cursor-pointer"
         >
-          <HugeiconsIcon icon={FavouriteIcon} size={16} />
+          <HugeiconsIcon
+            icon={FavouriteIcon}
+            size={16}
+            className={wishlisted ? 'text-brand fill-brand' : 'text-ink'}
+          />
         </button>
         {product.bestseller && (
           <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white text-[11px] font-semibold text-ink shadow-sm">

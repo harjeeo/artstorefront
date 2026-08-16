@@ -9,9 +9,11 @@ import {
   ShoppingBag01Icon,
 } from '@hugeicons/core-free-icons';
 import RadioCard from '../components/checkout/RadioCard';
+import AddressForm from '../components/checkout/AddressForm';
 import CheckoutSummary from '../components/checkout/CheckoutSummary';
 import { useCart } from '../context/CartContext';
-import { savedAddresses, shippingMethods, paymentMethods } from '../data/checkoutData';
+import { useOrders } from '../context/OrdersContext';
+import { savedAddresses, shippingMethods, paymentMethods, formatAddressLines } from '../data/checkoutData';
 
 function Field({ label, required, ...props }) {
   return (
@@ -30,14 +32,14 @@ function Field({ label, required, ...props }) {
 
 export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart();
+  const { addOrder } = useOrders();
 
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [addresses, setAddresses] = useState(savedAddresses);
   const [addressId, setAddressId] = useState(savedAddresses[0]?.id ?? '');
   const [showAddAddress, setShowAddAddress] = useState(false);
-  const [newAddress, setNewAddress] = useState({ label: '', line1: '', line2: '' });
-  const [addresses, setAddresses] = useState(savedAddresses);
   const [shippingId, setShippingId] = useState(shippingMethods[0]?.id ?? '');
   const [giftCode, setGiftCode] = useState('');
   const [giftMessage, setGiftMessage] = useState('');
@@ -56,19 +58,38 @@ export default function CheckoutPage() {
     setGiftMessage('This code is not valid right now.');
   };
 
-  const handleAddAddress = (e) => {
-    e.preventDefault();
-    if (!newAddress.label.trim() || !newAddress.line1.trim()) return;
+  const handleAddAddress = (values) => {
     const id = `addr-${Date.now()}`;
-    setAddresses((prev) => [...prev, { id, isDefault: false, ...newAddress }]);
+    setAddresses((prev) => [...prev, { id, ...values }]);
     setAddressId(id);
-    setNewAddress({ label: '', line1: '', line2: '' });
     setShowAddAddress(false);
   };
 
   const handlePlaceOrder = (e) => {
     e.preventDefault();
-    setOrderNumber(`AR-${Math.floor(100000 + Math.random() * 900000)}`);
+    const address = addresses.find((a) => a.id === addressId);
+    const payment = paymentMethods.find((m) => m.id === paymentId);
+    const newOrderNumber = `AR-${Math.floor(100000 + Math.random() * 900000)}`;
+
+    addOrder({
+      id: newOrderNumber,
+      placedAt: new Date().toISOString(),
+      status: 'Processing',
+      items: items.map((item) => ({
+        id: item.id,
+        title: item.title,
+        image: item.image,
+        price: item.price,
+        quantity: item.quantity,
+        size: item.size,
+        color: item.color,
+      })),
+      address,
+      shipping,
+      paymentMethod: payment?.label ?? 'Cash on Delivery',
+    });
+
+    setOrderNumber(newOrderNumber);
     setOrderPlaced(true);
     clearCart();
   };
@@ -86,12 +107,20 @@ export default function CheckoutPage() {
         <p className="text-gray-500 mb-8">
           We've emailed the confirmation to <span className="font-medium text-ink">{email || 'your inbox'}</span>.
         </p>
-        <Link
-          to="/"
-          className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-brand hover:bg-brand-dark text-white font-semibold text-sm transition-colors"
-        >
-          Continue Shopping
-        </Link>
+        <div className="flex items-center justify-center gap-3">
+          <Link
+            to="/account/orders"
+            className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-ink text-ink font-semibold text-sm hover:bg-gray-50 transition-colors"
+          >
+            View Order
+          </Link>
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-brand hover:bg-brand-dark text-white font-semibold text-sm transition-colors"
+          >
+            Continue Shopping
+          </Link>
+        </div>
       </div>
     );
   }
@@ -153,63 +182,34 @@ export default function CheckoutPage() {
           <section>
             <h2 className="text-lg font-semibold text-ink mb-4">Shipping Address</h2>
             <div className="space-y-3">
-              {addresses.map((addr) => (
-                <RadioCard
-                  key={addr.id}
-                  name="address"
-                  checked={addressId === addr.id}
-                  onChange={() => setAddressId(addr.id)}
-                >
-                  <span className="flex items-center gap-2 flex-wrap">
-                    <span className="font-semibold text-ink">{addr.label}</span>
-                    {addr.isDefault && (
-                      <span className="px-2 py-0.5 rounded-full bg-ink text-white text-[10px] font-semibold tracking-wide">
-                        DEFAULT
-                      </span>
-                    )}
-                  </span>
-                  <span className="block text-sm text-gray-600 mt-0.5">{addr.line1}</span>
-                  <span className="block text-sm text-gray-600">{addr.line2}</span>
-                </RadioCard>
-              ))}
+              {addresses.map((addr) => {
+                const { title, line1, line2, line3 } = formatAddressLines(addr);
+                return (
+                  <RadioCard
+                    key={addr.id}
+                    name="address"
+                    checked={addressId === addr.id}
+                    onChange={() => setAddressId(addr.id)}
+                  >
+                    <span className="flex items-center gap-2 flex-wrap">
+                      <span className="font-semibold text-ink">{title}</span>
+                      {addr.isDefault && (
+                        <span className="px-2 py-0.5 rounded-full bg-ink text-white text-[10px] font-semibold tracking-wide">
+                          DEFAULT
+                        </span>
+                      )}
+                    </span>
+                    <span className="block text-sm text-gray-600 mt-0.5">{line1}</span>
+                    {line2 && <span className="block text-sm text-gray-600">{line2}</span>}
+                    <span className="block text-sm text-gray-600">{line3}</span>
+                  </RadioCard>
+                );
+              })}
             </div>
 
             {showAddAddress ? (
-              <div className="mt-4 rounded-xl border border-gray-200 p-4 space-y-3">
-                <Field
-                  label="Label"
-                  value={newAddress.label}
-                  onChange={(e) => setNewAddress((a) => ({ ...a, label: e.target.value }))}
-                  placeholder="e.g. Home, Office"
-                />
-                <Field
-                  label="Address line 1"
-                  value={newAddress.line1}
-                  onChange={(e) => setNewAddress((a) => ({ ...a, line1: e.target.value }))}
-                  placeholder="House no., street, area"
-                />
-                <Field
-                  label="Address line 2"
-                  value={newAddress.line2}
-                  onChange={(e) => setNewAddress((a) => ({ ...a, line2: e.target.value }))}
-                  placeholder="City, State, PIN, Country"
-                />
-                <div className="flex gap-3 pt-1">
-                  <button
-                    type="button"
-                    onClick={handleAddAddress}
-                    className="px-5 py-2.5 rounded-full bg-ink hover:bg-black text-white text-sm font-semibold transition-colors cursor-pointer"
-                  >
-                    Save address
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowAddAddress(false)}
-                    className="px-5 py-2.5 rounded-full border border-gray-300 text-sm font-semibold text-ink hover:bg-gray-50 transition-colors cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                </div>
+              <div className="mt-4">
+                <AddressForm onSave={handleAddAddress} onCancel={() => setShowAddAddress(false)} />
               </div>
             ) : (
               <button
