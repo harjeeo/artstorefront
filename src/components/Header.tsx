@@ -8,11 +8,13 @@ import {
   Menu01Icon,
 } from '@hugeicons/core-free-icons';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 import SearchBar from './SearchBar';
 import CategoryNav from './CategoryNav';
 
 export default function Header() {
   const { itemCount, openCart } = useCart();
+  const { items: wishlistItems } = useWishlist();
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
@@ -47,9 +49,14 @@ export default function Header() {
             <Link
               to="/wishlist"
               aria-label="Wishlist"
-              className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 transition-colors"
+              className="relative flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 transition-colors"
             >
               <HugeiconsIcon icon={FavouriteIcon} size={22} />
+              {wishlistItems.length > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center h-4 w-4 rounded-full bg-brand text-white text-[10px] font-bold">
+                  {wishlistItems.length > 9 ? '9+' : wishlistItems.length}
+                </span>
+              )}
             </Link>
             <button
               type="button"

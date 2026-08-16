@@ -11,6 +11,7 @@ import ProductPage from './pages/ProductPage';
 import ProductReviewsPage from './pages/ProductReviewsPage';
 import CartPage from './pages/CartPage';
 import SearchResultsPage from './pages/SearchResultsPage';
+import WishlistStorePage from './pages/WishlistPage';
 import CheckoutPage from './pages/CheckoutPage';
 import DashboardLayout from './components/dashboard/DashboardLayout';
 import ProfilePage from './pages/dashboard/ProfilePage';
@@ -48,6 +49,7 @@ export default function App() {
                     <Route path="product/:id/reviews" element={<ProductReviewsPage />} />
                     <Route path="cart" element={<CartPage />} />
                     <Route path="search" element={<SearchResultsPage />} />
+                    <Route path="wishlist" element={<WishlistStorePage />} />
                     <Route path="checkout" element={<CheckoutPage />} />
                     <Route path="artist-signup" element={<ArtistSignupPage />} />
                     <Route path="account" element={<DashboardLayout />}>
