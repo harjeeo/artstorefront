@@ -20,6 +20,13 @@ import ReviewsPage from './pages/dashboard/ReviewsPage';
 import AddressPage from './pages/dashboard/AddressPage';
 import RequestsPage from './pages/dashboard/RequestsPage';
 import ArtistSignupPage from './pages/ArtistSignupPage';
+import ArtistDashboardLayout from './components/artist-dashboard/ArtistDashboardLayout';
+import ArtistDashboardHomePage from './pages/artist-dashboard/DashboardHomePage';
+import ArtistListingsPage from './pages/artist-dashboard/ListingsPage';
+import ArtistOrdersPage from './pages/artist-dashboard/OrdersPage';
+import ArtistStatsPage from './pages/artist-dashboard/StatsPage';
+import ArtistPaymentsPage from './pages/artist-dashboard/PaymentsPage';
+import ArtistSettingsPage from './pages/artist-dashboard/SettingsPage';
 import ComingSoon from './pages/ComingSoon';
 
 export default function App() {
@@ -50,6 +57,17 @@ export default function App() {
                       <Route path="requests" element={<RequestsPage />} />
                     </Route>
                     <Route path="*" element={<ComingSoon />} />
+                  </Route>
+
+                  {/* Artist Dashboard — no site header/footer */}
+                  <Route path="artist" element={<ArtistDashboardLayout />}>
+                    <Route index element={<Navigate to="dashboard" replace />} />
+                    <Route path="dashboard" element={<ArtistDashboardHomePage />} />
+                    <Route path="listings" element={<ArtistListingsPage />} />
+                    <Route path="orders" element={<ArtistOrdersPage />} />
+                    <Route path="stats" element={<ArtistStatsPage />} />
+                    <Route path="payments" element={<ArtistPaymentsPage />} />
+                    <Route path="settings" element={<ArtistSettingsPage />} />
                   </Route>
                 </Routes>
               </BrowserRouter>
