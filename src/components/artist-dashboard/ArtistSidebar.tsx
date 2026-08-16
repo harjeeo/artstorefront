@@ -6,6 +6,7 @@ import {
   ShoppingBag01Icon,
   AnalyticsUpIcon,
   Wallet01Icon,
+  UserIcon,
   Settings02Icon,
   Logout03Icon,
 } from '@hugeicons/core-free-icons';
@@ -16,6 +17,7 @@ const navItems = [
   { to: 'orders', label: 'Orders', icon: ShoppingBag01Icon },
   { to: 'stats', label: 'Stats', icon: AnalyticsUpIcon },
   { to: 'payments', label: 'Payments', icon: Wallet01Icon },
+  { to: 'profile', label: 'Profile', icon: UserIcon },
   { to: 'settings', label: 'Settings', icon: Settings02Icon },
 ];
 

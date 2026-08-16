@@ -27,6 +27,7 @@ import ArtistAddListingPage from './pages/artist-dashboard/AddListingPage';
 import ArtistOrdersPage from './pages/artist-dashboard/OrdersPage';
 import ArtistStatsPage from './pages/artist-dashboard/StatsPage';
 import ArtistPaymentsPage from './pages/artist-dashboard/PaymentsPage';
+import ArtistProfilePage from './pages/artist-dashboard/ArtistProfilePage';
 import ArtistSettingsPage from './pages/artist-dashboard/SettingsPage';
 import ComingSoon from './pages/ComingSoon';
 
@@ -69,6 +70,7 @@ export default function App() {
                     <Route path="orders" element={<ArtistOrdersPage />} />
                     <Route path="stats" element={<ArtistStatsPage />} />
                     <Route path="payments" element={<ArtistPaymentsPage />} />
+                    <Route path="profile" element={<ArtistProfilePage />} />
                     <Route path="settings" element={<ArtistSettingsPage />} />
                   </Route>
                 </Routes>
