@@ -112,5 +112,6 @@ export interface ProductReview {
   date: string;
   rating: number;
   text: string;
-  image?: string;
+  tags?: string[];
+  images?: string[];
 }

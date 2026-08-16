@@ -29,15 +29,33 @@ export default function ReviewListItem({ review }: { review: ProductReview }) {
         </span>
       </div>
 
+      {review.tags && review.tags.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mb-2">
+          {review.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-2 py-0.5 rounded-full bg-gray-100 text-xs text-gray-600"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
       <p className="text-sm text-gray-700 leading-relaxed">{review.text}</p>
 
-      {review.image && (
-        <img
-          src={review.image}
-          alt=""
-          className="h-16 w-16 rounded-lg object-cover mt-3"
-          loading="lazy"
-        />
+      {review.images && review.images.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-3">
+          {review.images.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt=""
+              className="h-16 w-16 rounded-lg object-cover"
+              loading="lazy"
+            />
+          ))}
+        </div>
       )}
 
       <div className="flex items-center gap-2.5 mt-4">

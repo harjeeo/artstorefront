@@ -122,7 +122,7 @@ export const reviews: ProductReview[] = [
     date: '10 Aug, 2026',
     rating: 5,
     text: "Brilliant quality custom embroidered t-shirt that absolutely exceeded my expectations - I love it and am so happy with the result!! The seller was super helpful and even sent preview mock-ups of the design to see if I was happy with it and whether I wanted to make any changes before it was made. I'd 1000% recommend...",
-    image: 'https://picsum.photos/seed/review-2/120/120',
+    images: ['https://picsum.photos/seed/review-2/120/120'],
   },
   {
     id: 'r3',
