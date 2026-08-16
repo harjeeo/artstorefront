@@ -115,3 +115,13 @@ export interface ProductReview {
   tags?: string[];
   images?: string[];
 }
+
+export type ListingStatus = 'active' | 'disabled';
+
+export interface ArtistListing {
+  id: string;
+  title: string;
+  image: string;
+  createdAt: string;
+  status: ListingStatus;
+}
