@@ -37,6 +37,28 @@ function Accordion({ title, defaultOpen = false, children }: AccordionProps) {
 
 export default function ProductPolicies({ product }: { product: ProductDetail }) {
   const [following, setFollowing] = useState(false);
+  const [country] = useState(() => product.delivery.deliverTo.split(',')[0]?.trim() || 'India');
+  const [pincode, setPincode] = useState(
+    () => product.delivery.deliverTo.split(',')[1]?.trim() || ''
+  );
+  const [editingPincode, setEditingPincode] = useState(false);
+  const [pincodeInput, setPincodeInput] = useState(pincode);
+  const [pincodeError, setPincodeError] = useState('');
+
+  const startEditingPincode = () => {
+    setPincodeInput(pincode);
+    setPincodeError('');
+    setEditingPincode(true);
+  };
+
+  const savePincode = () => {
+    if (!/^\d{6}$/.test(pincodeInput)) {
+      setPincodeError('Enter a valid 6-digit pincode');
+      return;
+    }
+    setPincode(pincodeInput);
+    setEditingPincode(false);
+  };
 
   return (
     <div>
@@ -66,18 +88,51 @@ export default function ProductPolicies({ product }: { product: ProductDetail })
             Sent from:&nbsp;<span className="font-semibold text-ink">{product.delivery.sentFrom}</span>
           </p>
         </div>
-        <div className="flex items-center gap-2 text-sm text-gray-700">
-          <span>
-            Deliver to&nbsp;<span className="font-semibold text-ink">{product.delivery.deliverTo}</span>
-          </span>
-          <button
-            type="button"
-            aria-label="Edit delivery address"
-            className="text-gray-500 hover:text-ink cursor-pointer"
-          >
-            <HugeiconsIcon icon={PencilEdit02Icon} size={16} />
-          </button>
-        </div>
+        {editingPincode ? (
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-700 shrink-0">Deliver to {country},</span>
+              <input
+                type="text"
+                inputMode="numeric"
+                maxLength={6}
+                value={pincodeInput}
+                onChange={(e) => setPincodeInput(e.target.value.replace(/\D/g, ''))}
+                autoFocus
+                className="w-24 rounded-lg border border-gray-300 px-2.5 py-1.5 text-sm text-ink focus:outline-none focus:border-ink"
+              />
+              <button
+                type="button"
+                onClick={savePincode}
+                className="px-3 py-1.5 rounded-full bg-ink hover:bg-black text-white text-xs font-semibold cursor-pointer"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                onClick={() => setEditingPincode(false)}
+                className="px-3 py-1.5 rounded-full border border-gray-300 hover:bg-gray-50 text-ink text-xs font-semibold cursor-pointer"
+              >
+                Cancel
+              </button>
+            </div>
+            {pincodeError && <p className="text-xs text-red-600">{pincodeError}</p>}
+          </div>
+        ) : (
+          <div className="flex items-center gap-2 text-sm text-gray-700">
+            <span>
+              Deliver to&nbsp;<span className="font-semibold text-ink">{country}, {pincode}</span>
+            </span>
+            <button
+              type="button"
+              onClick={startEditingPincode}
+              aria-label="Edit delivery address"
+              className="text-gray-500 hover:text-ink cursor-pointer"
+            >
+              <HugeiconsIcon icon={PencilEdit02Icon} size={16} />
+            </button>
+          </div>
+        )}
       </Accordion>
 
       <Accordion title="Meet your seller" defaultOpen>

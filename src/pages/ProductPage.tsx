@@ -39,7 +39,7 @@ export default function ProductPage() {
           </div>
 
           {/* Right column: buy box + policies */}
-          <div className="lg:sticky lg:top-24 self-start">
+          <div className="lg:sticky lg:top-24 self-start flex flex-col gap-6">
             <BuyBox product={product} />
             <ProductPolicies product={product} />
           </div>
