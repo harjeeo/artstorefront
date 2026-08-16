@@ -12,6 +12,7 @@ import {
   Delete02Icon,
 } from '@hugeicons/core-free-icons';
 import DashboardEmptyState from '../../components/dashboard/DashboardEmptyState';
+import Pagination from '../../components/category/Pagination';
 import { initialListings } from '../../data/artistListingsData';
 import type { ArtistListing } from '../../types';
 
@@ -21,6 +22,8 @@ const dateFilters = [
   { id: '30', label: 'Last 30 days' },
   { id: '90', label: 'Last 90 days' },
 ];
+
+const PAGE_SIZE = 5;
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-IN', {
@@ -34,6 +37,7 @@ export default function ListingsPage() {
   const [listings, setListings] = useState<ArtistListing[]>(initialListings);
   const [search, setSearch] = useState('');
   const [dateFilter, setDateFilter] = useState('all');
+  const [page, setPage] = useState(1);
   const [toast, setToast] = useState('');
 
   const showToast = (message: string) => {
@@ -78,6 +82,13 @@ export default function ListingsPage() {
     );
   }, [listings, search, dateFilter]);
 
+  const totalPages = Math.max(1, Math.ceil(filteredListings.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const paginatedListings = filteredListings.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -100,7 +111,10 @@ export default function ListingsPage() {
           />
           <input
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(1);
+            }}
             placeholder="Search listings by title..."
             className="w-full rounded-full border border-gray-300 pl-10 pr-4 py-2.5 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-ink transition-colors"
           />
@@ -109,7 +123,10 @@ export default function ListingsPage() {
         <div className="relative">
           <select
             value={dateFilter}
-            onChange={(e) => setDateFilter(e.target.value)}
+            onChange={(e) => {
+              setDateFilter(e.target.value);
+              setPage(1);
+            }}
             className="appearance-none rounded-full border border-gray-300 bg-white pl-4 pr-9 py-2.5 text-sm text-ink cursor-pointer hover:border-ink transition-colors focus:outline-none focus:border-ink"
           >
             {dateFilters.map((f) => (
@@ -154,9 +171,11 @@ export default function ListingsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {filteredListings.map((listing, i) => (
+              {paginatedListings.map((listing, i) => (
                 <tr key={listing.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-3 text-gray-500">{i + 1}</td>
+                  <td className="px-4 py-3 text-gray-500">
+                    {(currentPage - 1) * PAGE_SIZE + i + 1}
+                  </td>
                   <td className="px-4 py-3">
                     <img
                       src={listing.image}
@@ -219,6 +238,8 @@ export default function ListingsPage() {
           </table>
         </div>
       )}
+
+      <Pagination page={currentPage} totalPages={totalPages} onChange={setPage} />
     </div>
   );
 }
