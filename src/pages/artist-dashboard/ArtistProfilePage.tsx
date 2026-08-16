@@ -8,7 +8,7 @@ interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: IconSvgElement;
 }
 
-function Field({ label, icon, ...props }: FieldProps) {
+function Field({ label, icon, className = '', ...props }: FieldProps) {
   return (
     <div>
       <label className="block text-sm font-semibold text-ink mb-1.5">{label}</label>
@@ -23,7 +23,7 @@ function Field({ label, icon, ...props }: FieldProps) {
         <input
           className={`w-full rounded-lg border border-gray-300 py-3 text-sm text-ink placeholder:text-gray-400 focus:outline-none focus:border-ink transition-colors disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed ${
             icon ? 'pl-10 pr-4' : 'px-4'
-          }`}
+          } ${className}`}
           {...props}
         />
       </div>
@@ -60,10 +60,22 @@ export default function ArtistProfilePage() {
   const [youtube, setYoutube] = useState('');
   const [snapchat, setSnapchat] = useState('');
 
+  const [accountHolder, setAccountHolder] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
+  const [confirmAccountNumber, setConfirmAccountNumber] = useState('');
+  const [ifscCode, setIfscCode] = useState('');
+
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
+    if (accountNumber !== confirmAccountNumber) {
+      setError('Account number and confirmation do not match.');
+      setSaved(false);
+      return;
+    }
+    setError('');
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
   };
@@ -159,6 +171,35 @@ export default function ArtistProfilePage() {
           </div>
         </Section>
 
+        <Section title="Bank Account Details">
+          <Field
+            label="Account Holder"
+            value={accountHolder}
+            onChange={(e) => setAccountHolder(e.target.value)}
+            placeholder="Name as per bank records"
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <Field
+              label="Account Number"
+              value={accountNumber}
+              onChange={(e) => setAccountNumber(e.target.value)}
+              inputMode="numeric"
+            />
+            <Field
+              label="Confirm Account Number"
+              value={confirmAccountNumber}
+              onChange={(e) => setConfirmAccountNumber(e.target.value)}
+              inputMode="numeric"
+            />
+          </div>
+          <Field
+            label="IFSC Code"
+            value={ifscCode}
+            onChange={(e) => setIfscCode(e.target.value.toUpperCase())}
+            placeholder="e.g. HDFC0001234"
+          />
+        </Section>
+
         <div className="flex items-center gap-3">
           <button
             type="submit"
@@ -167,6 +208,7 @@ export default function ArtistProfilePage() {
             Save Changes
           </button>
           {saved && <span className="text-sm text-green-600 font-medium">Saved!</span>}
+          {error && <span className="text-sm text-red-600 font-medium">{error}</span>}
         </div>
       </form>
     </div>
