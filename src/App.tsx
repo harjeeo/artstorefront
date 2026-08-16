@@ -23,6 +23,7 @@ import ArtistSignupPage from './pages/ArtistSignupPage';
 import ArtistDashboardLayout from './components/artist-dashboard/ArtistDashboardLayout';
 import ArtistDashboardHomePage from './pages/artist-dashboard/DashboardHomePage';
 import ArtistListingsPage from './pages/artist-dashboard/ListingsPage';
+import ArtistAddListingPage from './pages/artist-dashboard/AddListingPage';
 import ArtistOrdersPage from './pages/artist-dashboard/OrdersPage';
 import ArtistStatsPage from './pages/artist-dashboard/StatsPage';
 import ArtistPaymentsPage from './pages/artist-dashboard/PaymentsPage';
@@ -64,6 +65,7 @@ export default function App() {
                     <Route index element={<Navigate to="dashboard" replace />} />
                     <Route path="dashboard" element={<ArtistDashboardHomePage />} />
                     <Route path="listings" element={<ArtistListingsPage />} />
+                    <Route path="listings/new" element={<ArtistAddListingPage />} />
                     <Route path="orders" element={<ArtistOrdersPage />} />
                     <Route path="stats" element={<ArtistStatsPage />} />
                     <Route path="payments" element={<ArtistPaymentsPage />} />

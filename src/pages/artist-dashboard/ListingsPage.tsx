@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   PlusSignIcon,
@@ -81,13 +82,13 @@ export default function ListingsPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl sm:text-3xl font-serif font-medium text-ink">Listings</h1>
-        <button
-          type="button"
-          className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-brand hover:bg-brand-dark text-white text-sm font-semibold transition-colors cursor-pointer"
+        <Link
+          to="/artist/listings/new"
+          className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-brand hover:bg-brand-dark text-white text-sm font-semibold transition-colors"
         >
           <HugeiconsIcon icon={PlusSignIcon} size={16} />
           Add Listing
-        </button>
+        </Link>
       </div>
 
       <div className="flex flex-wrap items-center gap-3 mb-5">
