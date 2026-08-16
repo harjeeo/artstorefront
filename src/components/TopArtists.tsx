@@ -10,9 +10,9 @@ export default function TopArtists() {
           <a
             key={artist.id}
             href={`/shop/${artist.shopName}`}
-            className="snap-start shrink-0 w-40 sm:w-44 rounded-xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow group"
+            className="snap-start shrink-0 w-40 sm:w-44 rounded-xl border border-gray-200 hover:shadow-md transition-shadow group block"
           >
-            <div className="relative h-20 sm:h-24 bg-gray-100">
+            <div className="h-20 sm:h-24 rounded-t-xl overflow-hidden bg-gray-100">
               <img
                 src={artist.cover}
                 alt=""
@@ -20,7 +20,7 @@ export default function TopArtists() {
                 loading="lazy"
               />
             </div>
-            <div className="flex flex-col items-center text-center px-3 pb-4 -mt-8">
+            <div className="relative z-10 flex flex-col items-center text-center px-3 pb-4 -mt-8">
               <img
                 src={artist.avatar}
                 alt={artist.name}
