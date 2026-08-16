@@ -3,14 +3,12 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import {
   ArrowLeft01Icon,
   ArrowRight01Icon,
-  FavouriteIcon,
   PlayIcon,
   RulerIcon,
   Table01Icon,
 } from '@hugeicons/core-free-icons';
 import { colorOptions } from '../../data/productDetailData';
 import type { ProductDetail, Thumbnail } from '../../data/productDetailData';
-import { useWishlist } from '../../context/WishlistContext';
 
 function ThumbContent({ thumb }: { thumb: Thumbnail }) {
   if (thumb.type === 'video') {
@@ -62,8 +60,6 @@ function swatchHex(id: string) {
 
 export default function ImageGallery({ product }: { product: ProductDetail }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { isWishlisted, toggleWishlist } = useWishlist();
-  const wishlisted = isWishlisted(product.id);
   const thumbs = product.thumbnails;
   const active = thumbs[activeIndex];
 
@@ -123,20 +119,6 @@ export default function ImageGallery({ product }: { product: ProductDetail }) {
             <HugeiconsIcon icon={ArrowRight01Icon} size={20} />
           </button>
         </div>
-
-        <button
-          type="button"
-          onClick={() => toggleWishlist(product)}
-          aria-label="Add to wishlist"
-          aria-pressed={wishlisted}
-          className="absolute -top-3 -right-3 flex items-center justify-center h-11 w-11 rounded-full bg-white shadow-md border border-gray-100 hover:scale-105 transition-transform cursor-pointer"
-        >
-          <HugeiconsIcon
-            icon={FavouriteIcon}
-            size={20}
-            className={wishlisted ? 'text-brand' : 'text-ink'}
-          />
-        </button>
       </div>
     </div>
   );
