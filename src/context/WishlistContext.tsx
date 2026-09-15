@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   useCallback,
@@ -30,11 +32,18 @@ function loadFromStorage(): WishlistItem[] {
 }
 
 export function WishlistProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<WishlistItem[]>(() => loadFromStorage());
+  const [items, setItems] = useState<WishlistItem[]>([]);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    setItems(loadFromStorage());
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
     localStorage.setItem(WISHLIST_KEY, JSON.stringify(items));
-  }, [items]);
+  }, [items, hydrated]);
 
   const isWishlisted = useCallback(
     (id: string) => items.some((item) => item.id === id),

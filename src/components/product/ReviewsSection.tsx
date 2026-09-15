@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { StarIcon, CheckmarkCircle01Icon, ArrowDown01Icon } from '@hugeicons/core-free-icons';
 import { reviewSummaryTags, reviewFilterTags } from '../../data/productDetailData';
@@ -91,7 +93,7 @@ export default function ReviewsSection({ productId, rating, reviewCount }: Revie
 
       {reviews.length > PREVIEW_COUNT && (
         <Link
-          to={`/product/${productId}/reviews`}
+          href={`/product/${productId}/reviews`}
           className="inline-flex items-center justify-center mt-4 px-5 py-2.5 rounded-full border border-gray-300 text-sm font-semibold text-ink hover:border-ink transition-colors"
         >
           View all {reviews.length} reviews

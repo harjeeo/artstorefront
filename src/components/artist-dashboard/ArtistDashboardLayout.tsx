@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+'use client';
+
+import { useState, type ReactNode } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Notification03Icon } from '@hugeicons/core-free-icons';
 import ArtistSidebar from './ArtistSidebar';
 
-export default function ArtistDashboardLayout() {
+export default function ArtistDashboardLayout({ children }: { children: ReactNode }) {
   const [hasUnread] = useState(true);
 
   return (
@@ -26,7 +27,7 @@ export default function ArtistDashboardLayout() {
         </header>
 
         <main className="flex-1 overflow-y-auto px-6 py-8">
-          <Outlet />
+          {children}
         </main>
       </div>
     </div>

@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, type ReactNode } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowDown01Icon, ArrowUp01Icon, Tick01Icon } from '@hugeicons/core-free-icons';

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   useCallback,
@@ -28,11 +30,18 @@ function loadFromStorage(): ProductReview[] {
 }
 
 export function ProductReviewsProvider({ children }: { children: ReactNode }) {
-  const [reviews, setReviews] = useState<ProductReview[]>(() => loadFromStorage());
+  const [reviews, setReviews] = useState<ProductReview[]>(seedReviews);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    setReviews(loadFromStorage());
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
     localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
-  }, [reviews]);
+  }, [reviews, hydrated]);
 
   const addReview = useCallback((review: Omit<ProductReview, 'id' | 'date' | 'avatar'>) => {
     setReviews((prev) => [

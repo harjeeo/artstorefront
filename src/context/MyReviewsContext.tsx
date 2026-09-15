@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   useCallback,
@@ -49,11 +51,18 @@ function loadFromStorage(): MyReview[] {
 }
 
 export function MyReviewsProvider({ children }: { children: ReactNode }) {
-  const [reviews, setReviews] = useState<MyReview[]>(() => loadFromStorage());
+  const [reviews, setReviews] = useState<MyReview[]>(demoReviews);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    setReviews(loadFromStorage());
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
     localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
-  }, [reviews]);
+  }, [reviews, hydrated]);
 
   const updateReview = useCallback<MyReviewsContextValue['updateReview']>((id, updates) => {
     setReviews((prev) => prev.map((r) => (r.id === id ? { ...r, ...updates } : r)));

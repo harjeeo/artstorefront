@@ -1,4 +1,6 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   UserIcon,
@@ -9,21 +11,22 @@ import {
   InboxIcon,
   Logout03Icon,
 } from '@hugeicons/core-free-icons';
+import NavLink from '../NavLink';
 
 const navItems = [
-  { to: 'profile', label: 'Profile', icon: UserIcon },
-  { to: 'orders', label: 'Your Orders', icon: PackageIcon },
-  { to: 'wishlist', label: 'Wishlist', icon: FavouriteIcon },
-  { to: 'reviews', label: 'My Reviews', icon: StarIcon },
-  { to: 'address', label: 'Your Address', icon: Location01Icon },
-  { to: 'requests', label: 'Requests', icon: InboxIcon },
+  { to: '/account/profile', label: 'Profile', icon: UserIcon },
+  { to: '/account/orders', label: 'Your Orders', icon: PackageIcon },
+  { to: '/account/wishlist', label: 'Wishlist', icon: FavouriteIcon },
+  { to: '/account/reviews', label: 'My Reviews', icon: StarIcon },
+  { to: '/account/address', label: 'Your Address', icon: Location01Icon },
+  { to: '/account/requests', label: 'Requests', icon: InboxIcon },
 ];
 
 export default function DashboardSidebar() {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleLogout = () => {
-    navigate('/');
+    router.push('/');
   };
 
   return (

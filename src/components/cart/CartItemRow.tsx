@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
 import { useCountdown } from '../../hooks/useCountdown';
@@ -32,7 +34,7 @@ export default function CartItemRow({
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-3">
           <Link
-            to={`/product/${item.id}`}
+            href={`/product/${item.id}`}
             className="text-sm font-medium text-ink hover:underline line-clamp-2 leading-snug"
           >
             {item.title}
@@ -80,7 +82,7 @@ export default function CartItemRow({
               className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-500"
             />
           </div>
-          <Link to={`/product/${item.id}`} className="text-sm font-semibold text-ink hover:underline">
+          <Link href={`/product/${item.id}`} className="text-sm font-semibold text-ink hover:underline">
             Edit
           </Link>
           <button

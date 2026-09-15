@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   useCallback,
@@ -48,17 +50,26 @@ function loadFromStorage(key: string): CartItem[] {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(() => loadFromStorage(ITEMS_KEY));
-  const [savedItems, setSavedItems] = useState<CartItem[]>(() => loadFromStorage(SAVED_KEY));
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [savedItems, setSavedItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    setItems(loadFromStorage(ITEMS_KEY));
+    setSavedItems(loadFromStorage(SAVED_KEY));
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
     localStorage.setItem(ITEMS_KEY, JSON.stringify(items));
-  }, [items]);
+  }, [items, hydrated]);
 
   useEffect(() => {
+    if (!hydrated) return;
     localStorage.setItem(SAVED_KEY, JSON.stringify(savedItems));
-  }, [savedItems]);
+  }, [savedItems, hydrated]);
 
   const openCart = useCallback(() => setIsOpen(true), []);
   const closeCart = useCallback(() => setIsOpen(false), []);

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {

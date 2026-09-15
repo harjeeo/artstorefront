@@ -1,4 +1,6 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   DashboardSquare01Icon,
@@ -10,22 +12,23 @@ import {
   Settings02Icon,
   Logout03Icon,
 } from '@hugeicons/core-free-icons';
+import NavLink from '../NavLink';
 
 const navItems = [
-  { to: 'dashboard', label: 'Dashboard', icon: DashboardSquare01Icon },
-  { to: 'listings', label: 'Listings', icon: Tag01Icon },
-  { to: 'orders', label: 'Orders', icon: ShoppingBag01Icon },
-  { to: 'stats', label: 'Stats', icon: AnalyticsUpIcon },
-  { to: 'payments', label: 'Payments', icon: Wallet01Icon },
-  { to: 'profile', label: 'Profile', icon: UserIcon },
-  { to: 'settings', label: 'Settings', icon: Settings02Icon },
+  { to: '/artist/dashboard', label: 'Dashboard', icon: DashboardSquare01Icon },
+  { to: '/artist/listings', label: 'Listings', icon: Tag01Icon },
+  { to: '/artist/orders', label: 'Orders', icon: ShoppingBag01Icon },
+  { to: '/artist/stats', label: 'Stats', icon: AnalyticsUpIcon },
+  { to: '/artist/payments', label: 'Payments', icon: Wallet01Icon },
+  { to: '/artist/profile', label: 'Profile', icon: UserIcon },
+  { to: '/artist/settings', label: 'Settings', icon: Settings02Icon },
 ];
 
 export default function ArtistSidebar() {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleLogout = () => {
-    navigate('/');
+    router.push('/');
   };
 
   return (

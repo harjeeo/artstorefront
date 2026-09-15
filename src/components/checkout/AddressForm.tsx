@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, type InputHTMLAttributes } from 'react';
 import type { Address } from '../../types';
 

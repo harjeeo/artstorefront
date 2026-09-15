@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ImageUploadIcon, Delete02Icon } from '@hugeicons/core-free-icons';

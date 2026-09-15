@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { FavouriteIcon, StarIcon } from '@hugeicons/core-free-icons';
 import { useWishlist } from '../context/WishlistContext';
@@ -17,7 +19,7 @@ export default function ProductCard({
   const wishlisted = isWishlisted(product.id);
 
   return (
-    <Link to={`/product/${product.id}`} className={`group ${className}`}>
+    <Link href={`/product/${product.id}`} className={`group ${className}`}>
       <div className="relative rounded-xl overflow-hidden bg-gray-100 aspect-square">
         <img
           src={product.image}

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Slider from './Slider';
 import { categories } from '../data/homeData';
 
@@ -12,7 +12,7 @@ export default function CategorySlider() {
         {categories.map((cat) => (
           <Link
             key={cat.id}
-            to={`/category/${cat.id}`}
+            href={`/category/${cat.id}`}
             className="snap-start shrink-0 flex flex-col items-center gap-3 w-28 sm:w-32 group"
           >
             <div className="h-24 w-24 sm:h-28 sm:w-28 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-brand transition-all">

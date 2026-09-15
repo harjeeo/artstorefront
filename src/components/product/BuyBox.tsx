@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   StarIcon,
@@ -74,11 +76,11 @@ export default function BuyBox({ product }: { product: ProductDetail }) {
 
       <p className="mt-2 text-sm text-gray-600">
         by{' '}
-        <Link to={`/shop/${product.shopName}`} className="font-semibold text-ink hover:underline">
+        <Link href={`/shop/${product.shopName}`} className="font-semibold text-ink hover:underline">
           {product.artistName}
         </Link>{' '}
         &middot;{' '}
-        <Link to={`/shop/${product.shopName}`} className="text-brand hover:underline">
+        <Link href={`/shop/${product.shopName}`} className="text-brand hover:underline">
           {product.shopName}
         </Link>
       </p>

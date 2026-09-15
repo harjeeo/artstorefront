@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Cancel01Icon, StarIcon, ImageUploadIcon } from '@hugeicons/core-free-icons';

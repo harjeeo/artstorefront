@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   useCallback,
@@ -121,11 +123,18 @@ function loadFromStorage(): Order[] {
 }
 
 export function OrdersProvider({ children }: { children: ReactNode }) {
-  const [orders, setOrders] = useState<Order[]>(() => loadFromStorage());
+  const [orders, setOrders] = useState<Order[]>(demoOrders);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    setOrders(loadFromStorage());
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
     localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
-  }, [orders]);
+  }, [orders, hydrated]);
 
   const addOrder = useCallback((order: Order) => {
     setOrders((prev) => [order, ...prev]);

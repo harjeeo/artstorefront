@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Search01Icon, Cancel01Icon } from '@hugeicons/core-free-icons';
 import { searchCatalog } from '../data/searchIndex';
@@ -14,7 +16,7 @@ export default function SearchBar({ variant = 'desktop' }: SearchBarProps) {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const results = useMemo(() => {
     const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
@@ -41,12 +43,12 @@ export default function SearchBar({ variant = 'desktop' }: SearchBarProps) {
     const q = query.trim();
     if (!q) return;
     setOpen(false);
-    navigate(`/search?q=${encodeURIComponent(q)}`);
+    router.push(`/search?q=${encodeURIComponent(q)}`);
   };
 
   const goToProduct = (id: string) => {
     setOpen(false);
-    navigate(`/product/${id}`);
+    router.push(`/product/${id}`);
   };
 
   const inputHeight = variant === 'mobile' ? 'py-2' : 'py-2.5';

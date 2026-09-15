@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Cancel01Icon, Delete02Icon, ShoppingBag01Icon } from '@hugeicons/core-free-icons';
 import { useCart } from '../context/CartContext';
@@ -123,14 +125,14 @@ export default function CartDrawer() {
             </div>
             <div className="flex gap-3">
               <Link
-                to="/cart"
+                href="/cart"
                 onClick={closeCart}
                 className="flex-1 flex items-center justify-center py-3 rounded-full border border-ink text-ink font-semibold text-sm hover:bg-gray-50 transition-colors"
               >
                 Go to Cart
               </Link>
               <Link
-                to="/checkout"
+                href="/checkout"
                 onClick={closeCart}
                 className="flex-1 flex items-center justify-center py-3 rounded-full bg-brand hover:bg-brand-dark text-white font-semibold text-sm transition-colors"
               >

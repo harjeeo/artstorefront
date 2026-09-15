@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Shield01Icon } from '@hugeicons/core-free-icons';
 
@@ -33,7 +35,7 @@ export default function OrderSummary({
         <HugeiconsIcon icon={Shield01Icon} size={18} className="shrink-0 mt-0.5" />
         <p>
           You're covered with{' '}
-          <Link to="/purchase-protection" className="underline hover:text-ink">
+          <Link href="/purchase-protection" className="underline hover:text-ink">
             Artisan Purchase Protection
           </Link>
         </p>
@@ -84,7 +86,7 @@ export default function OrderSummary({
         />
         <span className="text-sm text-ink">
           Mark order as a gift &nbsp;
-          <Link to="/gift-info" className="underline hover:text-brand">
+          <Link href="/gift-info" className="underline hover:text-brand">
             Learn more
           </Link>
         </span>

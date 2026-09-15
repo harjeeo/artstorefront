@@ -1,5 +1,7 @@
+'use client';
+
 import { useState, type ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   ArrowDown01Icon,
@@ -146,7 +148,7 @@ export default function ProductPolicies({ product }: { product: ProductDetail })
             <p className="font-semibold text-ink">{product.seller.name}</p>
             <p className="text-sm text-gray-500">
               Owner of{' '}
-              <Link to={`/shop/${product.seller.shopName}`} className="text-brand hover:underline">
+              <Link href={`/shop/${product.seller.shopName}`} className="text-brand hover:underline">
                 {product.seller.shopName}
               </Link>
             </p>

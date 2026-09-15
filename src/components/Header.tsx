@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   ShoppingCart01Icon,
@@ -21,7 +23,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4 h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0">
+          <Link href="/" className="flex items-center gap-2 shrink-0">
             <span className="text-2xl font-bold tracking-tight text-brand">Artisan</span>
           </Link>
 
@@ -33,21 +35,21 @@ export default function Header() {
           {/* Right actions */}
           <div className="flex items-center gap-1 sm:gap-2 ml-auto">
             <Link
-              to="/artist-signup"
+              href="/artist-signup"
               className="hidden lg:flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-full hover:bg-gray-100 transition-colors"
             >
               <HugeiconsIcon icon={Store01Icon} size={20} />
               Sell on Artisan
             </Link>
             <Link
-              to="/login"
+              href="/login"
               className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-full hover:bg-gray-100 transition-colors"
             >
               <HugeiconsIcon icon={UserIcon} size={20} />
               Sign in
             </Link>
             <Link
-              to="/wishlist"
+              href="/wishlist"
               aria-label="Wishlist"
               className="relative flex items-center justify-center h-10 w-10 rounded-full hover:bg-gray-100 transition-colors"
             >

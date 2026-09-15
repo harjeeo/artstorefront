@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   AppleIcon,
@@ -63,7 +63,7 @@ export default function Footer() {
                   return (
                     <li key={label}>
                       {to ? (
-                        <Link to={to} className="text-sm text-gray-700 hover:text-ink hover:underline">
+                        <Link href={to} className="text-sm text-gray-700 hover:text-ink hover:underline">
                           {label}
                         </Link>
                       ) : (
@@ -127,8 +127,8 @@ export default function Footer() {
 
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-gray-700">
             <span>&copy; 2026 Artisan, Inc.</span>
-            <Link to="/terms-conditions" className="hover:underline">Terms of Use</Link>
-            <Link to="/privacy-policy" className="hover:underline">Privacy</Link>
+            <Link href="/terms-conditions" className="hover:underline">Terms of Use</Link>
+            <Link href="/privacy-policy" className="hover:underline">Privacy</Link>
             <a href="/" className="hover:underline">Interest-based ads</a>
             <a href="/" className="hover:underline">Local Shops</a>
             <a href="/" className="hover:underline">Regions</a>

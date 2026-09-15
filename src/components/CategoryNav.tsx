@@ -1,4 +1,6 @@
-import { NavLink } from 'react-router-dom';
+'use client';
+
+import NavLink from './NavLink';
 
 const navLinks = [
   { label: 'Explore', to: '/' },
